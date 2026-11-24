@@ -1,5 +1,12 @@
 # DX Garden: design notes and known issues
 
+> **This repository is DX Garden for Linux (split out 2026-11-24).** It was
+> made from `hiraethsystems/DX-Garden` with its history, leaving out the
+> Vita app (`vita/`, `sce_sys/`, LiveArea art, the flat map and the Vita's
+> station list). The notes below are kept whole, Vita milestones included,
+> because the Linux app grew out of them; the Vita app itself is frozen in
+> the DX-Garden repository.
+
 A running log of decisions, in plain terms. Newest milestone at the bottom.
 
 ## Building
@@ -2168,3 +2175,21 @@ here).
 - `linux-port` goes to `main` through a pull request (merge commit), then
   `linux-v0.9.2` is tagged there and the AppImage is built from that commit
   with `tools/make_appimage.sh --release`.
+
+## The split into its own repository, 2026-11-24
+
+- **Owner's decision (2026-11-24):** keeping the Vita and Linux apps in one
+  repository was confusing, so the Linux app moves to
+  `hiraethsystems/DX-Garden-Linux` (public). Its history is kept: a copy of
+  DX-Garden's `main` at the 0.9.2 merge (`4b5ea62`) rewritten with
+  `git filter-branch` to leave out `vita/`, `sce_sys/`, `art/`,
+  `cmake/vita-gap.ld`, `assets/map/`, `assets/cacert.pem`, the Vita's
+  `assets/stations/stations.txt` and the LiveArea and map tools. Old tags
+  (`v0.9.0`, `v0.9.1`, `win-b*`) aren't carried over.
+- `core/` is this app's own copy from now on (no longer built for the
+  Vita). `CMakeLists.txt` is Linux only: `cmake -S . -B build-linux -G
+  Ninja` builds the app (`-DDXG_APP=OFF` for the core tests alone, without
+  SDL). README and CLAUDE.md are Linux only; the Vita screenshots are
+  replaced by a Linux one.
+- Linux 0.9.2 (build 47) is this repository's first release, tagged
+  `linux-v0.9.2`. Linux 0.9.1 stays a release of the DX-Garden repository.

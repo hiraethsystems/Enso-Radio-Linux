@@ -1,6 +1,6 @@
 # The Linux app (linux/), included from CMakeLists.txt.
 #
-#   cmake -S . -B build-linux -G Ninja -DDXG_LINUX=ON
+#   cmake -S . -B build-linux -G Ninja
 #   cmake --install build-linux --prefix ~/.local   (optional)
 #   AppImage: tools/make_appimage.sh (a build with -DDXG_STATIC_DEPS=ON)
 #
