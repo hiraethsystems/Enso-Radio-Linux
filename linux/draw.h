@@ -12,8 +12,8 @@
  * Solid rectangles, glyphs and icons all come from one atlas texture, so a
  * frame is a handful of draw calls.
  */
-#ifndef DXG_DRAW_H
-#define DXG_DRAW_H
+#ifndef ENSO_DRAW_H
+#define ENSO_DRAW_H
 
 #include <stdint.h>
 

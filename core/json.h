@@ -5,8 +5,8 @@
  * U+FFFD). Object members keep their order; with duplicate keys,
  * json_get() finds the last, as Python's json does.
  */
-#ifndef DXG_JSON_H
-#define DXG_JSON_H
+#ifndef ENSO_JSON_H
+#define ENSO_JSON_H
 
 #include <stddef.h>
 

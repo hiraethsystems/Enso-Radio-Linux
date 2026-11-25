@@ -1,7 +1,7 @@
 /* OpenGL 3.3 core functions, loaded through SDL at start-up (Windows'
  * opengl32.dll only exports OpenGL 1.1 directly). */
-#ifndef DXG_GL_H
-#define DXG_GL_H
+#ifndef ENSO_GL_H
+#define ENSO_GL_H
 
 #include <SDL3/SDL_opengl.h>
 
@@ -10,7 +10,7 @@
 #endif
 
 /* name, return type, arguments */
-#define DXG_GL_FUNCS(X)                                                                        \
+#define ENSO_GL_FUNCS(X)                                                                        \
     X(glGetString, const GLubyte *, (GLenum))                                                  \
     X(glGetError, GLenum, (void))                                                              \
     X(glViewport, void, (GLint, GLint, GLsizei, GLsizei))                                      \
@@ -77,74 +77,74 @@
     X(glDepthMask, void, (GLboolean))                                                          \
     X(glDrawElements, void, (GLenum, GLsizei, GLenum, const void *))
 
-#define DXG_GL_DECLARE(name, ret, args) extern ret(APIENTRY *dxg_##name) args;
-DXG_GL_FUNCS(DXG_GL_DECLARE)
-#undef DXG_GL_DECLARE
+#define ENSO_GL_DECLARE(name, ret, args) extern ret(APIENTRY *enso_##name) args;
+ENSO_GL_FUNCS(ENSO_GL_DECLARE)
+#undef ENSO_GL_DECLARE
 
 /* The rest of linux/ calls them by their usual names. */
-#ifndef DXG_GL_NO_ALIASES
-#define glGetString dxg_glGetString
-#define glGetError dxg_glGetError
-#define glViewport dxg_glViewport
-#define glScissor dxg_glScissor
-#define glClearColor dxg_glClearColor
-#define glClear dxg_glClear
-#define glEnable dxg_glEnable
-#define glDisable dxg_glDisable
-#define glBlendFunc dxg_glBlendFunc
-#define glBlendFuncSeparate dxg_glBlendFuncSeparate
-#define glPixelStorei dxg_glPixelStorei
-#define glDrawArrays dxg_glDrawArrays
-#define glGenBuffers dxg_glGenBuffers
-#define glDeleteBuffers dxg_glDeleteBuffers
-#define glBindBuffer dxg_glBindBuffer
-#define glBufferData dxg_glBufferData
-#define glBufferSubData dxg_glBufferSubData
-#define glGenVertexArrays dxg_glGenVertexArrays
-#define glDeleteVertexArrays dxg_glDeleteVertexArrays
-#define glBindVertexArray dxg_glBindVertexArray
-#define glVertexAttribPointer dxg_glVertexAttribPointer
-#define glEnableVertexAttribArray dxg_glEnableVertexAttribArray
-#define glCreateShader dxg_glCreateShader
-#define glDeleteShader dxg_glDeleteShader
-#define glShaderSource dxg_glShaderSource
-#define glCompileShader dxg_glCompileShader
-#define glGetShaderiv dxg_glGetShaderiv
-#define glGetShaderInfoLog dxg_glGetShaderInfoLog
-#define glCreateProgram dxg_glCreateProgram
-#define glDeleteProgram dxg_glDeleteProgram
-#define glAttachShader dxg_glAttachShader
-#define glLinkProgram dxg_glLinkProgram
-#define glGetProgramiv dxg_glGetProgramiv
-#define glGetProgramInfoLog dxg_glGetProgramInfoLog
-#define glUseProgram dxg_glUseProgram
-#define glGetUniformLocation dxg_glGetUniformLocation
-#define glUniform1i dxg_glUniform1i
-#define glUniform2f dxg_glUniform2f
-#define glGenTextures dxg_glGenTextures
-#define glDeleteTextures dxg_glDeleteTextures
-#define glBindTexture dxg_glBindTexture
-#define glActiveTexture dxg_glActiveTexture
-#define glTexImage2D dxg_glTexImage2D
-#define glTexSubImage2D dxg_glTexSubImage2D
-#define glTexParameteri dxg_glTexParameteri
-#define glGenFramebuffers dxg_glGenFramebuffers
-#define glDeleteFramebuffers dxg_glDeleteFramebuffers
-#define glBindFramebuffer dxg_glBindFramebuffer
-#define glFramebufferTexture2D dxg_glFramebufferTexture2D
-#define glCheckFramebufferStatus dxg_glCheckFramebufferStatus
-#define glBlitFramebuffer dxg_glBlitFramebuffer
-#define glUniform1f dxg_glUniform1f
-#define glUniform3f dxg_glUniform3f
-#define glUniform4f dxg_glUniform4f
-#define glUniformMatrix4fv dxg_glUniformMatrix4fv
-#define glCullFace dxg_glCullFace
-#define glFrontFace dxg_glFrontFace
-#define glGenerateMipmap dxg_glGenerateMipmap
-#define glTexParameterf dxg_glTexParameterf
-#define glReadPixels dxg_glReadPixels
-#define glDepthMask dxg_glDepthMask
-#define glDrawElements dxg_glDrawElements
+#ifndef ENSO_GL_NO_ALIASES
+#define glGetString enso_glGetString
+#define glGetError enso_glGetError
+#define glViewport enso_glViewport
+#define glScissor enso_glScissor
+#define glClearColor enso_glClearColor
+#define glClear enso_glClear
+#define glEnable enso_glEnable
+#define glDisable enso_glDisable
+#define glBlendFunc enso_glBlendFunc
+#define glBlendFuncSeparate enso_glBlendFuncSeparate
+#define glPixelStorei enso_glPixelStorei
+#define glDrawArrays enso_glDrawArrays
+#define glGenBuffers enso_glGenBuffers
+#define glDeleteBuffers enso_glDeleteBuffers
+#define glBindBuffer enso_glBindBuffer
+#define glBufferData enso_glBufferData
+#define glBufferSubData enso_glBufferSubData
+#define glGenVertexArrays enso_glGenVertexArrays
+#define glDeleteVertexArrays enso_glDeleteVertexArrays
+#define glBindVertexArray enso_glBindVertexArray
+#define glVertexAttribPointer enso_glVertexAttribPointer
+#define glEnableVertexAttribArray enso_glEnableVertexAttribArray
+#define glCreateShader enso_glCreateShader
+#define glDeleteShader enso_glDeleteShader
+#define glShaderSource enso_glShaderSource
+#define glCompileShader enso_glCompileShader
+#define glGetShaderiv enso_glGetShaderiv
+#define glGetShaderInfoLog enso_glGetShaderInfoLog
+#define glCreateProgram enso_glCreateProgram
+#define glDeleteProgram enso_glDeleteProgram
+#define glAttachShader enso_glAttachShader
+#define glLinkProgram enso_glLinkProgram
+#define glGetProgramiv enso_glGetProgramiv
+#define glGetProgramInfoLog enso_glGetProgramInfoLog
+#define glUseProgram enso_glUseProgram
+#define glGetUniformLocation enso_glGetUniformLocation
+#define glUniform1i enso_glUniform1i
+#define glUniform2f enso_glUniform2f
+#define glGenTextures enso_glGenTextures
+#define glDeleteTextures enso_glDeleteTextures
+#define glBindTexture enso_glBindTexture
+#define glActiveTexture enso_glActiveTexture
+#define glTexImage2D enso_glTexImage2D
+#define glTexSubImage2D enso_glTexSubImage2D
+#define glTexParameteri enso_glTexParameteri
+#define glGenFramebuffers enso_glGenFramebuffers
+#define glDeleteFramebuffers enso_glDeleteFramebuffers
+#define glBindFramebuffer enso_glBindFramebuffer
+#define glFramebufferTexture2D enso_glFramebufferTexture2D
+#define glCheckFramebufferStatus enso_glCheckFramebufferStatus
+#define glBlitFramebuffer enso_glBlitFramebuffer
+#define glUniform1f enso_glUniform1f
+#define glUniform3f enso_glUniform3f
+#define glUniform4f enso_glUniform4f
+#define glUniformMatrix4fv enso_glUniformMatrix4fv
+#define glCullFace enso_glCullFace
+#define glFrontFace enso_glFrontFace
+#define glGenerateMipmap enso_glGenerateMipmap
+#define glTexParameterf enso_glTexParameterf
+#define glReadPixels enso_glReadPixels
+#define glDepthMask enso_glDepthMask
+#define glDrawElements enso_glDrawElements
 #endif
 
 /* Loads every function above from the current context. Returns 0, or -1

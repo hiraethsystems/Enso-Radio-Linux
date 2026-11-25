@@ -1,6 +1,6 @@
 /* Minimal test helpers shared by the ensoradio_test sources. */
-#ifndef DXG_TEST_H
-#define DXG_TEST_H
+#ifndef ENSO_TEST_H
+#define ENSO_TEST_H
 
 #include <stdio.h>
 

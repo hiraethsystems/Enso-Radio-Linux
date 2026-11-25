@@ -166,7 +166,7 @@ static int open_pack(const char *path)
     if (!f)
         return -1;
     if (fseek(f, -20, SEEK_END) != 0 || fread(foot, 1, 20, f) != 20 ||
-        memcmp(foot + 12, "DXGP", 4) != 0) {
+        memcmp(foot + 12, "ENSO", 4) != 0) {
         fclose(f);
         return -1;
     }
@@ -671,7 +671,7 @@ int earth_init(const char *path)
     qlock = SDL_CreateMutex();
     qcond = SDL_CreateCondition();
     for (i = 0; i < WORKERS; i++)
-        workers[i] = SDL_CreateThread(worker, "dxg_tiles", NULL);
+        workers[i] = SDL_CreateThread(worker, "enso_tiles", NULL);
     return 0;
 }
 

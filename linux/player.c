@@ -19,7 +19,7 @@
 #include "track_info.h"
 
 #define GRAIN 1024        /* samples per push to the audio stream */
-#define USER_AGENT "EnsoRadio/" DXG_VERSION " (" DXG_PLATFORM_NAME ")"
+#define USER_AGENT "EnsoRadio/" ENSO_VERSION " (" ENSO_PLATFORM_NAME ")"
 /* Decoded audio queued ahead of the device. SDL pulls from this on its own
  * thread; more than this and the decoder waits, which keeps the stream
  * buffer (not the device queue) holding the slack. */
@@ -1290,8 +1290,8 @@ static void start_session(const char *url, size_t prebuffer)
     LOG("player: start %s (prebuffer %u KB)", url, (unsigned)(prebuffer / 1024));
     /* The caller holds the lock, so the threads can't run ahead of the
      * session state set here. */
-    P.net_thid = SDL_CreateThread(net_thread, "dxg_net", NULL);
-    P.dec_thid = SDL_CreateThread(dec_thread, "dxg_decode", NULL);
+    P.net_thid = SDL_CreateThread(net_thread, "enso_net", NULL);
+    P.dec_thid = SDL_CreateThread(dec_thread, "enso_decode", NULL);
     if (!P.net_thid || !P.dec_thid) {
         LOG("player: thread create failed: %s", SDL_GetError());
         snprintf(P.error, sizeof(P.error), "Could not create player threads");

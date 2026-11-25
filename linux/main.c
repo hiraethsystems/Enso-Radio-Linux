@@ -59,8 +59,8 @@ static const char *state_name(player_state s)
 }
 
 /* Moves an older data folder to ~/.local/share/ensoradio/ once, if the new
- * folder doesn't exist yet: dxgarden/ (DX Garden, up to Linux 0.9.2) or,
- * before that, "DX Garden"/ (builds before 37). Moved rather than copied, so
+ * folder doesn't exist yet: the folder names used up to Linux 0.9.2 and,
+ * before build 37, the one named after the display name. Moved rather than copied, so
  * settings, stations, favourites, the cache and logs all come along. */
 static void move_old_data_dir(void)
 {
@@ -129,8 +129,8 @@ static void open_log(const char *dir)
 {
     char path[1024];
     char prev[1024];
-    snprintf(path, sizeof(path), "%slog-%s-b%s.txt", dir, DXG_VERSION, DXG_BUILD);
-    snprintf(prev, sizeof(prev), "%slog-%s-b%s-previous.txt", dir, DXG_VERSION, DXG_BUILD);
+    snprintf(path, sizeof(path), "%slog-%s-b%s.txt", dir, ENSO_VERSION, ENSO_BUILD);
+    snprintf(prev, sizeof(prev), "%slog-%s-b%s-previous.txt", dir, ENSO_VERSION, ENSO_BUILD);
     remove(prev);
     rename(path, prev);
     log_open(path);
@@ -199,7 +199,7 @@ static void save_screenshot(SDL_Window *win, const char *path)
         int y;
         unsigned char *tmp = malloc((size_t)w * 4);
         if (rp && tmp) {
-            dxg_glPixelStorei(GL_PACK_ALIGNMENT, 4);
+            enso_glPixelStorei(GL_PACK_ALIGNMENT, 4);
             rp(0, 0, w, h, GL_RGBA, GL_UNSIGNED_BYTE, surf->pixels);
             /* GL rows run bottom-up. */
             for (y = 0; y < h / 2; y++) {
@@ -502,7 +502,7 @@ int main(int argc, char **argv)
         }
     }
 
-    SDL_SetAppMetadata("Ensō Radio", DXG_VERSION, "systems.hiraeth.ensoradio");
+    SDL_SetAppMetadata("Ensō Radio", ENSO_VERSION, "systems.hiraeth.ensoradio");
     if (!SDL_Init(SDL_INIT_AUDIO | (seconds || download ? 0 : SDL_INIT_VIDEO))) {
         fprintf(stderr, "SDL_Init: %s\n", SDL_GetError());
         return 1;
@@ -510,7 +510,7 @@ int main(int argc, char **argv)
     dir = data_dir();
     open_log(dir);
     log_to_stderr(verbose);
-    LOG("Ensō Radio %s (build %s), %s, SDL %d.%d.%d, data in %s", DXG_VERSION, DXG_BUILD,
+    LOG("Ensō Radio %s (build %s), %s, SDL %d.%d.%d, data in %s", ENSO_VERSION, ENSO_BUILD,
         SDL_GetPlatform(), SDL_VERSIONNUM_MAJOR(SDL_GetVersion()),
         SDL_VERSIONNUM_MINOR(SDL_GetVersion()), SDL_VERSIONNUM_MICRO(SDL_GetVersion()), dir);
     LOG("audio: driver %s", SDL_GetCurrentAudioDriver());

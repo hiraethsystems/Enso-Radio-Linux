@@ -8,8 +8,8 @@
  * Mono is doubled to both sides; more than two channels are mixed down to
  * the front pair.
  */
-#ifndef DXG_DECODE_H
-#define DXG_DECODE_H
+#ifndef ENSO_DECODE_H
+#define ENSO_DECODE_H
 
 #include <stddef.h>
 #include <stdint.h>

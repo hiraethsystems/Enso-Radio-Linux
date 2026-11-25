@@ -5,8 +5,8 @@
  * threads; the place dots and the atmosphere are drawn on top. Everything
  * here is in real pixels of the globe's viewport.
  */
-#ifndef DXG_EARTH_H
-#define DXG_EARTH_H
+#ifndef ENSO_EARTH_H
+#define ENSO_EARTH_H
 
 #include "library.h"
 

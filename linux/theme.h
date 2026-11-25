@@ -12,8 +12,8 @@
  * those desktops' colours; no theme engine, artwork or icons from them are
  * used.
  */
-#ifndef DXG_THEME_H
-#define DXG_THEME_H
+#ifndef ENSO_THEME_H
+#define ENSO_THEME_H
 
 typedef enum { LOOK_CLASSIC, LOOK_BREEZE, LOOK_ADWAITA } ui_look_id;
 
