@@ -1,5 +1,5 @@
 /*
- * dxgarden_listtool: core/rb_build.c from the command line, with the same
+ * ensoradio_listtool: core/rb_build.c from the command line, with the same
  * options as tools/rb_to_stations.py --from-raw, so the two can be
  * compared on the same snapshot (tests/compare_listtool.sh).
  */
@@ -105,7 +105,7 @@ int main(int argc, char **argv)
         }
     }
     if (!nraw) {
-        fprintf(stderr, "usage: dxgarden_listtool --from-raw FILE... [--geonames FILE] [--borders "
+        fprintf(stderr, "usage: ensoradio_listtool --from-raw FILE... [--geonames FILE] [--borders "
                         "FILE] [--admin1 FILE] [--without-coords] [--codecs LIST] [--hls] [--max N] [-o FILE]\n");
         return 2;
     }
@@ -178,7 +178,7 @@ int main(int argc, char **argv)
         return 1;
     }
     stat(raws[0], &sb);
-    head = rb_header(&o, geo != NULL, r.n, time(NULL), sb.st_mtime, "dxgarden_listtool", bundle);
+    head = rb_header(&o, geo != NULL, r.n, time(NULL), sb.st_mtime, "ensoradio_listtool", bundle);
     f = fopen(output, "wb");
     if (!f) {
         fprintf(stderr, "cannot write %s\n", output);

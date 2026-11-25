@@ -1,6 +1,8 @@
-# Project brief: DX Garden for Linux
+# Project brief: Ensō Radio for Linux
 
-Name: **DX Garden**. Internal/folder name: `dxgarden` (data folder `~/.local/share/dxgarden/`, app id `club.hiraeth.dxgarden`).
+Name: **Ensō Radio**. Internal/folder name: `ensoradio` (data folder `~/.local/share/ensoradio/`, app id `systems.hiraeth.ensoradio`).
+
+Renamed from DX Garden on 2026-11-25 (my decision: Radio Garden holds "Radio Garden" trade marks, and "Garden" was too close). Up to 0.9.2 the app was `club.hiraeth.dxgarden` with data in `~/.local/share/dxgarden/`; the app moves that folder to the new one on first start (`move_old_data_dir` in `linux/main.c`). Use "Ensō Radio" for anything a user sees, and "Enso Radio" only where `ō` can't be shown. The Android app is `hiraethsystems/Enso-Radio`.
 
 ## What this is
 
@@ -10,7 +12,7 @@ It should feel like Radio Garden to use, but with its own visual identity. Do no
 
 ## Where it came from (my decision, 2026-11-24)
 
-DX Garden started as a PS Vita homebrew app. The Vita app stays in its own repository, `hiraethsystems/DX-Garden`, and is frozen. This repository (`hiraethsystems/DX-Garden-Linux`) is the Linux app only, split out with its history on 2026-11-24. `core/` here is the Linux app's own copy and may change freely; it no longer has to build for the Vita. Keep it portable C99 with its own unit tests all the same.
+Ensō Radio started as a PS Vita homebrew app. The Vita app stays in its own repository, `hiraethsystems/Enso-Radio-Vita`, and is frozen. This repository (`hiraethsystems/Enso-Radio-Linux`) is the Linux app only, split out with its history on 2026-11-24. `core/` here is the Linux app's own copy and may change freely; it no longer has to build for the Vita. Keep it portable C99 with its own unit tests all the same.
 
 I will test every build on my PC and report back. Work in small milestones, and stop at the end of each one so I can test before you continue.
 
@@ -18,13 +20,13 @@ I will test every build on my PC and report back. Work in small milestones, and 
 
 Stations come from the user's own station file, imports, URLs they type in, and the bundled list:
 
-- `~/.local/share/dxgarden/stations.txt` in a simple documented format: name, stream URL, country, city, latitude, longitude, plus optional genre and notes.
-- M3U/PLS files placed in `~/.local/share/dxgarden/import/` (these lack coordinates; let the user assign a place to them in the app).
+- `~/.local/share/ensoradio/stations.txt` in a simple documented format: name, stream URL, country, city, latitude, longitude, plus optional genre and notes.
+- M3U/PLS files placed in `~/.local/share/ensoradio/import/` (these lack coordinates; let the user assign a place to them in the app).
 - Add station by URL.
 
 **One directory is allowed: Radio Browser (radio-browser.info).** A desktop script (`tools/rb_to_stations.py`) downloads stations from it once and writes a normal `stations.txt`; `core/rb_build.c` does the same inside the app and must write the same lines (`tests/compare_listtool.sh`).
 
-**Bundled list:** one snapshot made with that script (`--bundle <version>`) ships in the AppImage as `assets/stations/linux/stations.txt`: every format the app plays, HLS included, stations without coordinates placed as in `NOTES.md` (F6). On first run it becomes `~/.local/share/dxgarden/stations.txt`; the app never overwrites an existing one. The README says the list is correct as of the release date and that changes are the user's responsibility.
+**Bundled list:** one snapshot made with that script (`--bundle <version>`) ships in the AppImage as `assets/stations/linux/stations.txt`: every format the app plays, HLS included, stations without coordinates placed as in `NOTES.md` (F6). On first run it becomes `~/.local/share/ensoradio/stations.txt`; the app never overwrites an existing one. The README says the list is correct as of the release date and that changes are the user's responsibility.
 
 **Country labels follow where a station actually is, whatever Radio Browser says (my decision):** Ukraine's territory, including Crimea and the occupied east and south, is labelled Ukraine; Palestinian territory is labelled Gaza or Occupied West Bank; UK stations are labelled by nation (England, Scotland, Wales, Northern Ireland), and the Crown Dependencies by their own names (Isle of Man, Jersey, Guernsey). Stations placed only by country go in that country's Country-wide place ("United Kingdom, Country-wide", "Palestine, Country-wide"). The same rules apply to every list.
 
@@ -36,7 +38,7 @@ Keep all station loading behind the `station_source` interface in `core/` so ano
 
 ## Architecture
 
-- `core/`: portable C99, no SDL or OpenGL. Station file and playlist parsing, ICY and stream metadata, HLS, stream buffering, grouping stations into places, config, the station-list builder. Unit tests in `tests/` (`dxgarden_test`), built without SDL.
+- `core/`: portable C99, no SDL or OpenGL. Station file and playlist parsing, ICY and stream metadata, HLS, stream buffering, grouping stations into places, config, the station-list builder. Unit tests in `tests/` (`ensoradio_test`), built without SDL.
 - `linux/`: the app: SDL3 window and input, OpenGL globe, decoders (mpg123, faad2, Vorbis, Opus, FLAC), libcurl networking, its own widget toolkit and looks (Classic, Breeze, Adwaita).
 - `tools/`: `rb_to_stations.py`, `build_linux_deps.sh`, `make_appimage.sh`, `make_earth.py`, font and Unicode table generators.
 

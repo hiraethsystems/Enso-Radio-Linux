@@ -1,8 +1,8 @@
 /*
- * DX Garden for Linux.
+ * Ensō Radio for Linux.
  *
- *   dxgarden                      the app
- *   dxgarden --play URL --seconds N
+ *   ensoradio                      the app
+ *   ensoradio --play URL --seconds N
  *                                 no window: plays for N seconds, prints the
  *                                 status each second, exits 0 if it played
  *   --verbose                     copy the log to stderr
@@ -58,13 +58,17 @@ static const char *state_name(player_state s)
     return "?";
 }
 
-/* Builds before 37 kept Linux data in ~/.local/share/DX Garden/. Moves it
- * to ~/.local/share/dxgarden/ once, if the new folder doesn't exist yet. */
+/* Moves an older data folder to ~/.local/share/ensoradio/ once, if the new
+ * folder doesn't exist yet: dxgarden/ (DX Garden, up to Linux 0.9.2) or,
+ * before that, "DX Garden"/ (builds before 37). Moved rather than copied, so
+ * settings, stations, favourites, the cache and logs all come along. */
 static void move_old_data_dir(void)
 {
+    static const char *const old_names[] = { "dxgarden", "DX Garden" };
     const char *xdg = SDL_getenv("XDG_DATA_HOME"), *home = SDL_getenv("HOME");
     char root[1024], old_dir[1100], new_dir[1100];
     SDL_PathInfo info;
+    size_t i;
 
     if (xdg && xdg[0])
         snprintf(root, sizeof(root), "%s", xdg);
@@ -72,32 +76,36 @@ static void move_old_data_dir(void)
         snprintf(root, sizeof(root), "%s/.local/share", home);
     else
         return;
-    snprintf(old_dir, sizeof(old_dir), "%s/DX Garden", root);
-    snprintf(new_dir, sizeof(new_dir), "%s/dxgarden", root);
-    if (SDL_GetPathInfo(old_dir, &info) && info.type == SDL_PATHTYPE_DIRECTORY &&
-        !SDL_GetPathInfo(new_dir, NULL)) {
-        if (rename(old_dir, new_dir) == 0)
-            fprintf(stderr, "moved %s to %s\n", old_dir, new_dir);
-        else
-            fprintf(stderr, "could not move %s to %s\n", old_dir, new_dir);
+    snprintf(new_dir, sizeof(new_dir), "%s/ensoradio", root);
+    if (SDL_GetPathInfo(new_dir, NULL))
+        return;
+    for (i = 0; i < sizeof(old_names) / sizeof(old_names[0]); i++) {
+        snprintf(old_dir, sizeof(old_dir), "%s/%s", root, old_names[i]);
+        if (SDL_GetPathInfo(old_dir, &info) && info.type == SDL_PATHTYPE_DIRECTORY) {
+            if (rename(old_dir, new_dir) == 0)
+                fprintf(stderr, "moved %s to %s\n", old_dir, new_dir);
+            else
+                fprintf(stderr, "could not move %s to %s\n", old_dir, new_dir);
+            return;
+        }
     }
 }
 
-/* The data folder: $XDG_DATA_HOME/dxgarden/
- * (~/.local/share/dxgarden/). Always ends in a separator. */
+/* The data folder: $XDG_DATA_HOME/ensoradio/
+ * (~/.local/share/ensoradio/). Always ends in a separator. */
 static char *data_dir(void)
 {
     char *d;
     move_old_data_dir();
-    d = SDL_GetPrefPath(NULL, "dxgarden");
+    d = SDL_GetPrefPath(NULL, "ensoradio");
     return d ? d : SDL_strdup("./");
 }
 
 /* The folder with fonts/, stations.txt and earth-day.pack; ends in a
  * separator. Windows: next to the program. Linux: next to the program when
  * fonts/ is there (the build folder), otherwise
- * ../share/club.hiraeth.dxgarden/ from it, named after the app ID because
- * share/dxgarden/ under ~/.local is the data folder
+ * ../share/systems.hiraeth.ensoradio/ from it, named after the app ID because
+ * share/ensoradio/ under ~/.local is the data folder
  * (an installed copy, or the AppImage). */
 static char *assets_dir(void)
 {
@@ -109,7 +117,7 @@ static char *assets_dir(void)
         char probe[1100];
         snprintf(probe, sizeof(probe), "%sfonts", base);
         if (!SDL_GetPathInfo(probe, NULL)) {
-            SDL_asprintf(&d, "%s../share/club.hiraeth.dxgarden/", base);
+            SDL_asprintf(&d, "%s../share/systems.hiraeth.ensoradio/", base);
             return d;
         }
     }
@@ -363,10 +371,10 @@ static int run_window(const char *data, const char *shot, int frames, int start_
     SDL_GL_SetAttribute(SDL_GL_CONTEXT_PROFILE_MASK, SDL_GL_CONTEXT_PROFILE_CORE);
     SDL_GL_SetAttribute(SDL_GL_DOUBLEBUFFER, 1);
     SDL_GL_SetAttribute(SDL_GL_DEPTH_SIZE, 24);
-    win = SDL_CreateWindow("DX Garden", start_w, start_h, flags);
+    win = SDL_CreateWindow("Ensō Radio", start_w, start_h, flags);
     if (!win) {
         LOG("video: %s", SDL_GetError());
-        SDL_ShowSimpleMessageBox(SDL_MESSAGEBOX_ERROR, "DX Garden", SDL_GetError(), NULL);
+        SDL_ShowSimpleMessageBox(SDL_MESSAGEBOX_ERROR, "Ensō Radio", SDL_GetError(), NULL);
         return 1;
     }
     SDL_SetWindowMinimumSize(win, 480, 360);
@@ -410,11 +418,11 @@ static int run_window(const char *data, const char *shot, int frames, int start_
     if (!gl || gl_load(&missing) != 0) {
         char msg[512];
         snprintf(msg, sizeof(msg),
-                 "DX Garden needs OpenGL 3.3, which this PC's graphics driver didn't provide "
+                 "Ensō Radio needs OpenGL 3.3, which this PC's graphics driver didn't provide "
                  "(%s). Updating the graphics driver may help.",
                  gl ? missing : SDL_GetError());
         LOG("video: %s", msg);
-        SDL_ShowSimpleMessageBox(SDL_MESSAGEBOX_ERROR, "DX Garden", msg, win);
+        SDL_ShowSimpleMessageBox(SDL_MESSAGEBOX_ERROR, "Ensō Radio", msg, win);
         return 1;
     }
     SDL_GL_SetSwapInterval(1);
@@ -494,7 +502,7 @@ int main(int argc, char **argv)
         }
     }
 
-    SDL_SetAppMetadata("DX Garden", DXG_VERSION, "club.hiraeth.dxgarden");
+    SDL_SetAppMetadata("Ensō Radio", DXG_VERSION, "systems.hiraeth.ensoradio");
     if (!SDL_Init(SDL_INIT_AUDIO | (seconds || download ? 0 : SDL_INIT_VIDEO))) {
         fprintf(stderr, "SDL_Init: %s\n", SDL_GetError());
         return 1;
@@ -502,7 +510,7 @@ int main(int argc, char **argv)
     dir = data_dir();
     open_log(dir);
     log_to_stderr(verbose);
-    LOG("DX Garden %s (build %s), %s, SDL %d.%d.%d, data in %s", DXG_VERSION, DXG_BUILD,
+    LOG("Ensō Radio %s (build %s), %s, SDL %d.%d.%d, data in %s", DXG_VERSION, DXG_BUILD,
         SDL_GetPlatform(), SDL_VERSIONNUM_MAJOR(SDL_GetVersion()),
         SDL_VERSIONNUM_MINOR(SDL_GetVersion()), SDL_VERSIONNUM_MICRO(SDL_GetVersion()), dir);
     LOG("audio: driver %s", SDL_GetCurrentAudioDriver());
@@ -512,7 +520,7 @@ int main(int argc, char **argv)
         return 1;
     }
     if (player_init(RING_BYTES) != 0) {
-        SDL_ShowSimpleMessageBox(SDL_MESSAGEBOX_ERROR, "DX Garden",
+        SDL_ShowSimpleMessageBox(SDL_MESSAGEBOX_ERROR, "Ensō Radio",
                                  "The player could not start. See the log for details.", NULL);
         return 1;
     }

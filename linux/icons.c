@@ -1,5 +1,5 @@
 /*
- * Icons and glyphs, all original pixel art for DX Garden, built at start-up
+ * Icons and glyphs, all original pixel art for Ensō Radio, built at start-up
  * from the character grids below (or drawn in code) and put in the atlas.
  *
  * Grid characters: '.' transparent, '#' a glyph pixel (tinted when drawn),

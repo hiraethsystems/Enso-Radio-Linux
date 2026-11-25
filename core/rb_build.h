@@ -3,7 +3,7 @@
  * tools/rb_to_stations.py in C, for the Linux app's "Download Station
  * List" (the Vita doesn't use this). Given the same snapshot, GeoNames file
  * and borders, it writes the same station lines as the script; tests and
- * dxgarden_listtool check that.
+ * ensoradio_listtool check that.
  *
  *   - filters: codecs, HLS, minimum bitrate, a cap (and the countries and
  *     tag, which go into the query to Radio Browser);
@@ -91,7 +91,7 @@ int rb_convert(const json_value *const *stations, size_t n, const rb_options *o,
                rb_result *out);
 void rb_result_free(rb_result *r);
 
-/* The header comment for the file: what made it (e.g. "DX Garden 0.9.1
+/* The header comment for the file: what made it (e.g. "Ensō Radio 0.9.1
  * (build 45)"), when, from which snapshot and options. bundle: "for Linux
  * 0.9.2" adds the shipped-list preamble, or NULL. malloc'd. */
 char *rb_header(const rb_options *o, int with_cities, size_t count, time_t now, time_t snapshot,

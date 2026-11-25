@@ -1,11 +1,13 @@
-# DX Garden for Linux
+# Ensō Radio for Linux
+
+*Formerly DX Garden (renamed 2026-11-25).*
 
 A radio player and explorer in the spirit of spinning a globe and listening
 to what's on air somewhere else. Turn the globe, hold the crosshair on a
 place, and hear its stations.
 
-DX Garden started on the PS Vita; the Vita app lives in its own repository,
-[hiraethsystems/DX-Garden](https://github.com/hiraethsystems/DX-Garden).
+Ensō Radio started on the PS Vita; the Vita app lives in its own repository,
+[hiraethsystems/Enso-Radio-Vita](https://github.com/hiraethsystems/Enso-Radio-Vita).
 This repository is the Linux desktop app. The two share a station-file
 format and began from the same code, but are developed and released
 separately.
@@ -35,7 +37,7 @@ station list" below).
 
 **Beta (0.9.2).** Tested on Debian 13 with KDE Plasma 6; reports from
 other distributions and desktops are welcome as GitHub issues, with the
-log from `~/.local/share/dxgarden/`.
+log from `~/.local/share/ensoradio/`.
 
 - The globe, with a dot for each place: hold the crosshair on one to
   listen. A station library by country, city and genre, with favourites,
@@ -53,15 +55,16 @@ log from `~/.local/share/dxgarden/`.
 
 ## Installing
 
-Download `dxgarden-0.9.2-x86_64.AppImage` from the release. It runs on
+Download the latest `ensoradio-<version>-x86_64.AppImage` from the
+releases (0.9.2 and earlier are named `dxgarden-…`). It runs on
 most distributions from 2024 on: it needs glibc 2.38 or later (Ubuntu
 24.04+, Fedora 39+, Debian 13+, Arch, openSUSE Tumbleweed).
 
 To try it, make it executable and start it:
 
 ```sh
-chmod +x dxgarden-0.9.2-x86_64.AppImage
-./dxgarden-0.9.2-x86_64.AppImage
+chmod +x ensoradio-<version>-x86_64.AppImage
+./ensoradio-<version>-x86_64.AppImage
 ```
 
 To add it to your desktop's menu (KDE Plasma, GNOME and others), keep it
@@ -70,32 +73,50 @@ it. Run this in the folder you downloaded it to:
 
 ```sh
 mkdir -p ~/Applications ~/.local/share/applications ~/.local/share/icons/hicolor/128x128/apps
-mv dxgarden-0.9.2-x86_64.AppImage ~/Applications/dxgarden.AppImage
-chmod +x ~/Applications/dxgarden.AppImage
-(cd /tmp && ~/Applications/dxgarden.AppImage --appimage-extract club.hiraeth.dxgarden.png >/dev/null &&
-  mv squashfs-root/club.hiraeth.dxgarden.png ~/.local/share/icons/hicolor/128x128/apps/ &&
+mv ensoradio-<version>-x86_64.AppImage ~/Applications/ensoradio.AppImage
+chmod +x ~/Applications/ensoradio.AppImage
+(cd /tmp && ~/Applications/ensoradio.AppImage --appimage-extract systems.hiraeth.ensoradio.png >/dev/null &&
+  mv squashfs-root/systems.hiraeth.ensoradio.png ~/.local/share/icons/hicolor/128x128/apps/ &&
   rm -r squashfs-root)
-cat > ~/.local/share/applications/club.hiraeth.dxgarden.desktop <<EOF
+cat > ~/.local/share/applications/systems.hiraeth.ensoradio.desktop <<EOF
 [Desktop Entry]
 Type=Application
-Name=DX Garden
+Name=Ensō Radio
 GenericName=Radio Explorer
 Comment=Spin a globe and listen to live radio streams from your own station list
-Exec="$HOME/Applications/dxgarden.AppImage"
-Icon=club.hiraeth.dxgarden
+Exec="$HOME/Applications/ensoradio.AppImage"
+Icon=systems.hiraeth.ensoradio
 Terminal=false
 Categories=AudioVideo;Audio;Player;
 Keywords=radio;stream;internet radio;globe;
-StartupWMClass=club.hiraeth.dxgarden
+StartupWMClass=systems.hiraeth.ensoradio
 EOF
 ```
 
-DX Garden then shows up under Multimedia (on KDE, run `kbuildsycoca6` if it
+Ensō Radio then shows up under Multimedia (on KDE, run `kbuildsycoca6` if it
 doesn't appear straight away). To update, replace
-`~/Applications/dxgarden.AppImage` with the new file. Your stations,
-favourites and settings live in `~/.local/share/dxgarden/` and are kept.
+`~/Applications/ensoradio.AppImage` with the new file. Your stations,
+favourites and settings live in `~/.local/share/ensoradio/` and are kept.
 If the system has no FUSE, start the AppImage with
 `--appimage-extract-and-run`.
+
+### Updating from DX Garden
+
+The first start of Ensō Radio moves `~/.local/share/dxgarden/` to
+`~/.local/share/ensoradio/`, so your stations, favourites, settings and
+cache come along. The app ID changed too (`club.hiraeth.dxgarden` is now
+`systems.hiraeth.ensoradio`), so if you made a menu entry for DX Garden,
+remove the old one and make a new one as above:
+
+```sh
+rm -f ~/.local/share/applications/club.hiraeth.dxgarden.desktop \
+      ~/.local/share/icons/hicolor/128x128/apps/club.hiraeth.dxgarden.png \
+      ~/Applications/dxgarden.AppImage
+```
+
+An installed copy (`cmake --install`) leaves `bin/dxgarden` and
+`share/club.hiraeth.dxgarden/` behind under its prefix; delete them by
+hand.
 
 ## Downloading a fresh station list
 
@@ -112,7 +133,7 @@ before it keeps its own position. Then:
 2. The first time, it downloads GeoNames' town list (`cities1000.zip`,
    11 MB) and region names (`admin1CodesASCII.txt`, 150 KB) and Natural
    Earth's country borders (3 MB), and keeps them in
-   `~/.local/share/dxgarden/cache/` for next time. Tick "Download the town
+   `~/.local/share/ensoradio/cache/` for next time. Tick "Download the town
    names, regions and borders again" to refresh them.
 3. It writes `stations-new.txt` in the data folder and shows a summary.
    Nothing changes until you press **Replace My Station List**, which
@@ -139,7 +160,7 @@ Country labels follow where a station is: UK stations by nation
 their own names, Ukraine's territory (Crimea included) as Ukraine, and
 Palestinian territory as Gaza or Occupied West Bank.
 
-Without a window, `dxgarden --download-list [--codecs all] [--hls]
+Without a window, `ensoradio --download-list [--codecs all] [--hls]
 [--countries GB,IE] [--max N] [--without-coords] [--refresh]` does steps
 1 to 3 and prints the summary (its defaults are MP3 only and 2,000
 stations, as with the script).
@@ -153,7 +174,7 @@ run it as a native Wayland app, start it with `SDL_VIDEO_DRIVER=wayland`.
 
 ## Your files
 
-All in `~/.local/share/dxgarden/`, created on first run if missing.
+All in `~/.local/share/ensoradio/`, created on first run if missing.
 
 - `stations.txt`: your stations, one per line:
   `Name | Stream URL | Country | City | Latitude | Longitude | Genre | Notes`.
@@ -171,17 +192,17 @@ All in `~/.local/share/dxgarden/`, created on first run if missing.
 
 The release number is MAJOR.MINOR.PATCH (`linux/VERSION`), and the build
 number for test builds (`linux/BUILD`) only goes up. The app, the log and
-test AppImages show both, e.g. "0.9.2 (build 47)" and
-`dxgarden-0.9.2-b47-x86_64.AppImage`. Releases are tagged `linux-vX.Y.Z`
+test AppImages show both, e.g. "0.9.2 (build 48)" and
+`ensoradio-0.9.2-b48-x86_64.AppImage` (builds up to 47 were named `dxgarden-…`). Releases are tagged `linux-vX.Y.Z`
 and their AppImage is named without the build number
 (`tools/make_appimage.sh --release`). Linux 0.9.1 was released from the
-DX-Garden repository, as `v0.9.1`.
+Vita repository (then DX-Garden, now Enso-Radio-Vita), as `v0.9.1`.
 
 ## Building
 
 ### The AppImage
 
-`tools/make_appimage.sh` builds `dist/dxgarden-<version>-b<build>-x86_64.AppImage`,
+`tools/make_appimage.sh` builds `dist/ensoradio-<version>-b<build>-x86_64.AppImage`,
 one file that runs on most Linux distributions from 2024 on. It needs the
 libraries below built first:
 
@@ -192,7 +213,7 @@ python3 tools/make_earth.py --cache third_party/earth --out assets-build
 tools/make_appimage.sh
 ```
 
-`tools/make_appimage.sh --release` names it `dxgarden-<version>-x86_64.AppImage`
+`tools/make_appimage.sh --release` names it `ensoradio-<version>-x86_64.AppImage`
 instead, for a release.
 
 ### From source
@@ -220,7 +241,7 @@ cmake -S . -B build-linux -G Ninja && cmake --build build-linux
 cmake --install build-linux --prefix ~/.local
 ```
 
-The program's own files go in `~/.local/share/club.hiraeth.dxgarden/`, so
+The program's own files go in `~/.local/share/systems.hiraeth.ensoradio/`, so
 reinstalling never touches your stations or favourites.
 
 ### Tests
@@ -229,7 +250,7 @@ reinstalling never touches your stations or favourites.
 unit tests that need only a C compiler and zlib:
 
 ```sh
-cmake -S . -B build-test -DDXG_APP=OFF && cmake --build build-test && ./build-test/dxgarden_test
+cmake -S . -B build-test -DDXG_APP=OFF && cmake --build build-test && ./build-test/ensoradio_test
 python3 -I tools/test_rb_to_stations.py
 ```
 
@@ -268,7 +289,7 @@ header (the exact command is in `NOTES.md`).
 
 ## Credits and licences
 
-- DX Garden is licensed under the GNU GPL v3 (see `LICENSE`).
+- Ensō Radio is licensed under the GNU GPL v3 (see `LICENSE`).
 - Linked into the AppImage: SDL3 (zlib licence), libcurl (curl licence),
   Mbed TLS (Apache 2.0), mpg123 (LGPL 2.1), faad2 (GPL 2 or later),
   libogg, libvorbis, Opus, opusfile and libFLAC (BSD), FreeType (FreeType

@@ -19,7 +19,7 @@
 #include "track_info.h"
 
 #define GRAIN 1024        /* samples per push to the audio stream */
-#define USER_AGENT "DXGarden/" DXG_VERSION " (" DXG_PLATFORM_NAME ")"
+#define USER_AGENT "EnsoRadio/" DXG_VERSION " (" DXG_PLATFORM_NAME ")"
 /* Decoded audio queued ahead of the device. SDL pulls from this on its own
  * thread; more than this and the decoder waits, which keeps the stream
  * buffer (not the device queue) holding the slack. */
@@ -223,7 +223,7 @@ static void first_data(const unsigned char *buf, size_t n)
     case SK_OTHER:
         P.mode = MODE_REFUSED;
         snprintf(P.fatal, sizeof(P.fatal),
-                 "This station streams %s, which DX Garden doesn't play", format);
+                 "This station streams %s, which Ensō Radio doesn't play", format);
         break;
     case SK_HTML:
         P.mode = MODE_REFUSED;
@@ -759,7 +759,7 @@ static outcome hls_play(CURL *c, const char *body, size_t blen, const char *url,
         int start = 0, did = 0;
 
         if (pl.encrypted) {
-            snprintf(msg, mn, "This HLS stream is encrypted, which DX Garden can't play");
+            snprintf(msg, mn, "This HLS stream is encrypted, which Ensō Radio can't play");
             o = OUT_FATAL;
             goto out;
         }
@@ -794,7 +794,7 @@ static outcome hls_play(CURL *c, const char *body, size_t blen, const char *url,
                         goto out;
                     snprintf(map_url, sizeof(map_url), "%s", mu);
                     if (mp4_init(&mp4, m.p, m.n) != 0) {
-                        snprintf(msg, mn, "This HLS stream's audio (%s) isn't one DX Garden plays",
+                        snprintf(msg, mn, "This HLS stream's audio (%s) isn't one Ensō Radio plays",
                                  mp4.codec[0] ? mp4.codec : "fMP4");
                         o = OUT_FATAL;
                         goto out;
@@ -820,10 +820,10 @@ static outcome hls_play(CURL *c, const char *body, size_t blen, const char *url,
                 ts_feed(&ts, m.p, m.n, hls_es, NULL);
                 if (ts.audio_pid < 0) {
                     if (ts.unsupported)
-                        snprintf(msg, mn, "This HLS stream's audio is AC-3, which DX Garden "
+                        snprintf(msg, mn, "This HLS stream's audio is AC-3, which Ensō Radio "
                                           "doesn't play");
                     else
-                        snprintf(msg, mn, "This HLS stream has no audio DX Garden can play");
+                        snprintf(msg, mn, "This HLS stream has no audio Ensō Radio can play");
                     o = OUT_FATAL;
                     goto out;
                 }
@@ -837,14 +837,14 @@ static outcome hls_play(CURL *c, const char *body, size_t blen, const char *url,
             }
             case SEG_FMP4:
                 if (!mp4.ok && mp4_init(&mp4, m.p, m.n) != 0) {
-                    snprintf(msg, mn, "This HLS stream's audio isn't one DX Garden plays");
+                    snprintf(msg, mn, "This HLS stream's audio isn't one Ensō Radio plays");
                     o = OUT_FATAL;
                     goto out;
                 }
                 mp4_fragment(&mp4, m.p, m.n, hls_es, NULL);
                 break;
             case SEG_UNKNOWN:
-                LOG("hls: segment %lld isn't audio DX Garden knows (%u bytes)", sg->seq,
+                LOG("hls: segment %lld isn't audio Ensō Radio knows (%u bytes)", sg->seq,
                     (unsigned)m.n);
                 break;
             }

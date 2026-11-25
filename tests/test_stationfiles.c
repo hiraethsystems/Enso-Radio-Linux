@@ -1,6 +1,6 @@
 /* Checks generated station files against the real parser and grouping:
  * the committed Radio Browser sample, and any files named on the command
- * line (dxgarden_test FILE...), with timings for large ones. */
+ * line (ensoradio_test FILE...), with timings for large ones. */
 #include <stdio.h>
 #include <stdlib.h>
 #include <time.h>

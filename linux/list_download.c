@@ -30,7 +30,7 @@
     "https://raw.githubusercontent.com/nvkelso/natural-earth-vector/v5.1.2/geojson/"         \
     "ne_50m_admin_0_countries.geojson"
 #define BORDERS_FILE "ne_50m_admin_0_countries.geojson"
-#define USER_AGENT "DXGarden/" DXG_VERSION " (" DXG_PLATFORM_NAME "; station list download)"
+#define USER_AGENT "EnsoRadio/" DXG_VERSION " (" DXG_PLATFORM_NAME "; station list download)"
 #define MAX_DOWNLOAD (200u << 20)
 
 static struct {
@@ -533,7 +533,7 @@ static int run_job(void)
         goto out;
     }
     head = rb_header(&L.opts, 1, r.n, time(NULL), time(NULL),
-                     "DX Garden " DXG_VERSION " (build " DXG_BUILD ")", NULL);
+                     "Ensō Radio " DXG_VERSION " (build " DXG_BUILD ")", NULL);
     total = head ? strlen(head) : 0;
     for (i = 0; i < r.n; i++)
         total += strlen(r.lines[i].line) + 1;

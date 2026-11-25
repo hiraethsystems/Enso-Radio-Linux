@@ -1,4 +1,4 @@
-/* Minimal test helpers shared by the dxgarden_test sources. */
+/* Minimal test helpers shared by the ensoradio_test sources. */
 #ifndef DXG_TEST_H
 #define DXG_TEST_H
 
@@ -25,7 +25,7 @@ void run_bidi_tests(void);
 void run_stream_tests(void);
 void run_hls_tests(void);
 void run_rb_tests(void);
-/* dxgarden_test FILE...: checks generated stations files instead. */
+/* ensoradio_test FILE...: checks generated stations files instead. */
 int check_station_files(int argc, char **argv);
 
 #endif
