@@ -2218,3 +2218,17 @@ here).
 - `core/rb_build.c` and `tools/rb_to_stations.py` write the same header
   lines, so `tests/compare_listtool.sh` still matches.
 - Builds 48 and 49.
+
+## New icon, build 50 (2026-11-25)
+
+- **Owner's decision (2026-11-25):** a new icon on every platform: a
+  brush-drawn ensō around a radio mast, white on black. The artwork is the
+  owner's (made with Gemini), kept as `art/icon-source.jpg`.
+- `linux/share/systems.hiraeth.ensoradio.png` (128 px, used for the menu
+  entry, the window icon and the AppImage's `.DirIcon`) is made by
+  `tools/icon_extract.py` and `tools/make_icons.py` (shared with the
+  Android and Vita repos): the black rounded square as in the artwork,
+  drawn fresh so its edges are clean, 4 px margin, the brush art at 77 % of
+  the square.
+- Checked here: builds and starts; the build folder's `icon.png` is the
+  new one. Not yet checked: how it looks in the KDE menu and task bar.
