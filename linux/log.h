@@ -1,7 +1,7 @@
 /* Line log to log-<version>-b<build>.txt in the data folder, one file per
  * build, overwritten when that build is launched again. */
-#ifndef DXG_LOG_H
-#define DXG_LOG_H
+#ifndef ENSO_LOG_H
+#define ENSO_LOG_H
 
 void log_open(const char *path);
 void log_close(void);

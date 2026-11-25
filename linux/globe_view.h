@@ -1,8 +1,8 @@
 /* The Globe window: the globe with a crosshair that tunes to the place
  * under it, mouse and keyboard controls, and a 9x panel below with the
  * place and its stations. */
-#ifndef DXG_GLOBE_VIEW_H_DESKTOP
-#define DXG_GLOBE_VIEW_H_DESKTOP
+#ifndef ENSO_GLOBE_VIEW_H_DESKTOP
+#define ENSO_GLOBE_VIEW_H_DESKTOP
 
 #include "data.h"
 #include "ui.h"

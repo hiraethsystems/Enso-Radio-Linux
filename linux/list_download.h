@@ -14,8 +14,8 @@
  *
  * Nothing replaces the user's stations.txt until list_download_install().
  */
-#ifndef DXG_LIST_DOWNLOAD_H
-#define DXG_LIST_DOWNLOAD_H
+#ifndef ENSO_LIST_DOWNLOAD_H
+#define ENSO_LIST_DOWNLOAD_H
 
 #include <stddef.h>
 

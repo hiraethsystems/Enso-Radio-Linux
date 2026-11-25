@@ -64,8 +64,8 @@ done
 
 echo "== building"
 mkdir -p "$BUILD"
-cmake -S "$ROOT" -B "$BUILD" -G Ninja -DCMAKE_BUILD_TYPE=Release -DDXG_APP=ON \
-    -DDXG_STATIC_DEPS=ON -DDXG_RELEASE="$release" >"$BUILD/configure.log"
+cmake -S "$ROOT" -B "$BUILD" -G Ninja -DCMAKE_BUILD_TYPE=Release -DENSO_APP=ON \
+    -DENSO_STATIC_DEPS=ON -DENSO_RELEASE="$release" >"$BUILD/configure.log"
 cmake --build "$BUILD" -j "$JOBS" --target ensoradio_linux >/dev/null
 
 echo "== AppDir"

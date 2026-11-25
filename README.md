@@ -1,7 +1,5 @@
 # Ensō Radio for Linux
 
-*Formerly DX Garden (renamed 2026-11-25).*
-
 A radio player and explorer in the spirit of spinning a globe and listening
 to what's on air somewhere else. Turn the globe, hold the crosshair on a
 place, and hear its stations.
@@ -56,7 +54,7 @@ log from `~/.local/share/ensoradio/`.
 ## Installing
 
 Download the latest `ensoradio-<version>-x86_64.AppImage` from the
-releases (0.9.2 and earlier are named `dxgarden-…`). It runs on
+releases (0.9.2 and earlier have an older file name). It runs on
 most distributions from 2024 on: it needs glibc 2.38 or later (Ubuntu
 24.04+, Fedora 39+, Debian 13+, Arch, openSUSE Tumbleweed).
 
@@ -100,13 +98,13 @@ favourites and settings live in `~/.local/share/ensoradio/` and are kept.
 If the system has no FUSE, start the AppImage with
 `--appimage-extract-and-run`.
 
-### Updating from DX Garden
+### Updating from 0.9.2 or earlier
 
-The first start of Ensō Radio moves `~/.local/share/dxgarden/` to
+The first start of this version moves `~/.local/share/dxgarden/` to
 `~/.local/share/ensoradio/`, so your stations, favourites, settings and
 cache come along. The app ID changed too (`club.hiraeth.dxgarden` is now
-`systems.hiraeth.ensoradio`), so if you made a menu entry for DX Garden,
-remove the old one and make a new one as above:
+`systems.hiraeth.ensoradio`), so if you made a menu entry for 0.9.2 or
+earlier, remove the old one and make a new one as above:
 
 ```sh
 rm -f ~/.local/share/applications/club.hiraeth.dxgarden.desktop \
@@ -193,10 +191,10 @@ All in `~/.local/share/ensoradio/`, created on first run if missing.
 The release number is MAJOR.MINOR.PATCH (`linux/VERSION`), and the build
 number for test builds (`linux/BUILD`) only goes up. The app, the log and
 test AppImages show both, e.g. "0.9.2 (build 48)" and
-`ensoradio-0.9.2-b48-x86_64.AppImage` (builds up to 47 were named `dxgarden-…`). Releases are tagged `linux-vX.Y.Z`
+`ensoradio-0.9.2-b48-x86_64.AppImage` (builds up to 47 have an older file name). Releases are tagged `linux-vX.Y.Z`
 and their AppImage is named without the build number
 (`tools/make_appimage.sh --release`). Linux 0.9.1 was released from the
-Vita repository (then DX-Garden, now Enso-Radio-Vita), as `v0.9.1`.
+Vita repository (`hiraethsystems/Enso-Radio-Vita`), as `v0.9.1`.
 
 ## Building
 

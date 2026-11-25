@@ -349,7 +349,7 @@ static void about_window(ui_window *w, rect c, void *ud)
     (void)ud;
     ui_icon(ICON_APP32, c.x + 16, c.y + 16, 0);
     draw_text(x, c.y + 30, UI_FONT_BIG, 1, UI_TEXT, "Ensō Radio");
-    snprintf(line, sizeof(line), "Version %s (build %s) for Linux", DXG_VERSION, DXG_BUILD);
+    snprintf(line, sizeof(line), "Version %s (build %s) for Linux", ENSO_VERSION, ENSO_BUILD);
     ui_label(x, c.y + 40, line);
     ui_label(x, c.y + 56, "A radio player and explorer.");
     ui_label(x, c.y + 78, "By Aisling de Gr\xC3\xA1s");
@@ -879,7 +879,7 @@ int app_frame(void)
             snprintf(pane_fill, sizeof(pane_fill), "Buffer %u%%", A.st.fill_pct);
             panes[0] = pane_state;
             panes[1] = pane_fill;
-            panes[2] = "Build " DXG_BUILD;
+            panes[2] = "Build " ENSO_BUILD;
             widths[0] = -1;
             widths[1] = 90;
             widths[2] = 70;

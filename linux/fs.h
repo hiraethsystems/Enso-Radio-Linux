@@ -1,7 +1,7 @@
 /* Files and folders in the data folder (%APPDATA%\Ensō Radio\ on Windows,
  * ~/.local/share/ensoradio/ on Linux). */
-#ifndef DXG_FS_H
-#define DXG_FS_H
+#ifndef ENSO_FS_H
+#define ENSO_FS_H
 
 #include <stddef.h>
 

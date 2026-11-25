@@ -1,8 +1,8 @@
 /* The Stations window (an Explorer-style browser of the station library)
  * and its dialogs: Properties, Place Station, Add Station by Address and
  * the Load Report. */
-#ifndef DXG_LIBRARY_VIEW_H
-#define DXG_LIBRARY_VIEW_H
+#ifndef ENSO_LIBRARY_VIEW_H
+#define ENSO_LIBRARY_VIEW_H
 
 #include "data.h"
 #include "ui.h"

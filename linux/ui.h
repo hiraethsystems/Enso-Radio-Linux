@@ -13,8 +13,8 @@
  * looks (theme.h) draw the same widgets with single-pixel frames in a
  * desktop's colours.
  */
-#ifndef DXG_UI_H
-#define DXG_UI_H
+#ifndef ENSO_UI_H
+#define ENSO_UI_H
 
 #include <SDL3/SDL.h>
 

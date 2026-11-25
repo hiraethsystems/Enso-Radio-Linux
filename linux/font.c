@@ -167,7 +167,7 @@ int font_init(const char *dir)
     LOG("font: Liberation Sans and Noto Sans loaded in %u ms; other scripts load in the "
         "background", (unsigned)(SDL_GetTicks() - t0));
 
-    loader = SDL_CreateThread(load_thread, "dxg_font_load", NULL);
+    loader = SDL_CreateThread(load_thread, "enso_font_load", NULL);
     if (!loader) {
         LOG("font: loader thread failed, reading on the main thread");
         load_thread(NULL);

@@ -17,8 +17,8 @@
  *
  * Portable C99; the caller fetches and unzips the files.
  */
-#ifndef DXG_RB_BUILD_H
-#define DXG_RB_BUILD_H
+#ifndef ENSO_RB_BUILD_H
+#define ENSO_RB_BUILD_H
 
 #include <stddef.h>
 #include <time.h>

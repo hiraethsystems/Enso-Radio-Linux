@@ -1,6 +1,6 @@
 /* The desktop app's interface: the main window and its child windows. */
-#ifndef DXG_APP_H
-#define DXG_APP_H
+#ifndef ENSO_APP_H
+#define ENSO_APP_H
 
 #include <SDL3/SDL.h>
 

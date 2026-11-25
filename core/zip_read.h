@@ -2,8 +2,8 @@
  * One file out of a zip archive (GeoNames' cities1000.zip), with zlib.
  * Only "stored" and "deflated" entries, as GeoNames uses.
  */
-#ifndef DXG_ZIP_READ_H
-#define DXG_ZIP_READ_H
+#ifndef ENSO_ZIP_READ_H
+#define ENSO_ZIP_READ_H
 
 #include <stddef.h>
 

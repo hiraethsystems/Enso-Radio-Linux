@@ -2,7 +2,7 @@
 
 Name: **Ensō Radio**. Internal/folder name: `ensoradio` (data folder `~/.local/share/ensoradio/`, app id `systems.hiraeth.ensoradio`).
 
-Renamed from DX Garden on 2026-11-25 (my decision: Radio Garden holds "Radio Garden" trade marks, and "Garden" was too close). Up to 0.9.2 the app was `club.hiraeth.dxgarden` with data in `~/.local/share/dxgarden/`; the app moves that folder to the new one on first start (`move_old_data_dir` in `linux/main.c`). Use "Ensō Radio" for anything a user sees, and "Enso Radio" only where `ō` can't be shown. The Android app is `hiraethsystems/Enso-Radio`.
+The name was chosen on 2026-11-25 (my decision: Radio Garden holds "Radio Garden" trade marks, so keep clearly apart from it). Up to 0.9.2 the app had an earlier app ID, `club.hiraeth.dxgarden`, with data in `~/.local/share/dxgarden/`; the app moves that folder to the new one on first start (`move_old_data_dir` in `linux/main.c`). Mention the earlier IDs only where users need them to find their old files. Use "Ensō Radio" for anything a user sees, and "Enso Radio" only where `ō` can't be shown. The Android app is `hiraethsystems/Enso-Radio`.
 
 ## What this is
 

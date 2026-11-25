@@ -3,8 +3,8 @@
  * then a summary with "Replace My Station List". The work is done by
  * list_download.c.
  */
-#ifndef DXG_LIST_DIALOG_H
-#define DXG_LIST_DIALOG_H
+#ifndef ENSO_LIST_DIALOG_H
+#define ENSO_LIST_DIALOG_H
 
 #include "ui.h"
 
