@@ -1,5 +1,5 @@
-/* Files and folders in the data folder (%APPDATA%\DX Garden\ on Windows,
- * ~/.local/share/dxgarden/ on Linux). */
+/* Files and folders in the data folder (%APPDATA%\Ensō Radio\ on Windows,
+ * ~/.local/share/ensoradio/ on Linux). */
 #ifndef DXG_FS_H
 #define DXG_FS_H
 

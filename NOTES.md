@@ -2193,3 +2193,32 @@ here).
   replaced by a Linux one.
 - Linux 0.9.2 (build 47) is this repository's first release, tagged
   `linux-v0.9.2`. Linux 0.9.1 stays a release of the DX-Garden repository.
+
+## Renamed to Ensō Radio, 2026-11-25
+
+- **Owner's decision (2026-11-25):** DX Garden is now **Ensō Radio** on
+  every platform. Radio Garden holds registered trade marks for "Radio
+  Garden" (EU, classes 9, 38 and 41; Benelux, class 9), and "Garden" in a
+  globe radio app's name was too close. Repository: `Enso-Radio-Linux`
+  (was `DX-Garden-Linux`).
+- **Full rename on Linux:** app ID `systems.hiraeth.ensoradio` (was
+  `club.hiraeth.dxgarden`; the desktop file, icon and installed
+  `share/systems.hiraeth.ensoradio/` follow it), program `ensoradio`, data
+  folder `~/.local/share/ensoradio/`, AppImages
+  `ensoradio-<version>[-bN]-x86_64.AppImage`, CMake targets
+  `ensoradio_linux`, `ensoradio_test`, `ensoradio_listtool`, user agents
+  `EnsoRadio/<version> (…)` and `ensoradio-tools/<version>`, and every name
+  in the interface, messages, file headers, README and CLAUDE.md. The
+  `DXG_` macros and the dated header of the bundled station list are
+  unchanged.
+- **Data migration:** on first start, if `~/.local/share/ensoradio/` doesn't
+  exist, `move_old_data_dir()` moves `~/.local/share/dxgarden/` there (or,
+  failing that, the pre-build-37 `~/.local/share/DX Garden/`). A move, not
+  a copy: running an old DX Garden build afterwards starts from a fresh
+  data folder.
+- Old menu entries (`club.hiraeth.dxgarden.desktop`) and installed copies
+  aren't removed by the app; README says how.
+- `core/rb_build.c` and `tools/rb_to_stations.py` write the same new header
+  lines ("Ensō Radio …"), so `tests/compare_listtool.sh` still matches.
+- Build 48.
+

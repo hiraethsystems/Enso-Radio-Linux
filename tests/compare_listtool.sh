@@ -1,6 +1,6 @@
 #!/bin/sh
 # Builds station lists from one saved Radio Browser snapshot with both
-# tools/rb_to_stations.py and dxgarden_listtool (core/rb_build.c) and checks
+# tools/rb_to_stations.py and ensoradio_listtool (core/rb_build.c) and checks
 # that they write the same station lines and the same summary.
 #
 #   tests/compare_listtool.sh RAW.json CITIES.zip BORDERS.geojson [BUILD_DIR]
@@ -13,7 +13,7 @@ set -eu
 ROOT=$(cd "$(dirname "$0")/.." && pwd)
 RAW=$1 GEO=$2 BORDERS=$3 BUILD=${4:-$ROOT/build-linux}
 NOGEO=${5:-} ADMIN1=${6:-}
-TOOL="$BUILD/dxgarden_listtool"
+TOOL="$BUILD/ensoradio_listtool"
 OUT=$(mktemp -d)
 status=0
 

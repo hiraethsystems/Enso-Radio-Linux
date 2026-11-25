@@ -1,6 +1,6 @@
 #!/bin/sh
-# Builds the Linux AppImage: dist/dxgarden-<version>-b<build>-x86_64.AppImage
-# (or dist/dxgarden-<version>-x86_64.AppImage with --release).
+# Builds the Linux AppImage: dist/ensoradio-<version>-b<build>-x86_64.AppImage
+# (or dist/ensoradio-<version>-x86_64.AppImage with --release).
 #
 # The program is linked with the static libraries from
 # `tools/build_linux_deps.sh linux-static` (and SDL3 from `... linux`), so it
@@ -66,27 +66,27 @@ echo "== building"
 mkdir -p "$BUILD"
 cmake -S "$ROOT" -B "$BUILD" -G Ninja -DCMAKE_BUILD_TYPE=Release -DDXG_APP=ON \
     -DDXG_STATIC_DEPS=ON -DDXG_RELEASE="$release" >"$BUILD/configure.log"
-cmake --build "$BUILD" -j "$JOBS" --target dxgarden_linux >/dev/null
+cmake --build "$BUILD" -j "$JOBS" --target ensoradio_linux >/dev/null
 
 echo "== AppDir"
 rm -rf "$APPDIR"
 DESTDIR="$APPDIR" cmake --install "$BUILD" --prefix /usr --strip >/dev/null
-# The AppImage's own menu entry runs "dxgarden" from the image (the install
+# The AppImage's own menu entry runs "ensoradio" from the image (the install
 # step wrote the installed path into it).
-cp "$ROOT/linux/share/club.hiraeth.dxgarden.desktop" \
-    "$APPDIR/usr/share/applications/club.hiraeth.dxgarden.desktop"
-cp "$APPDIR/usr/share/applications/club.hiraeth.dxgarden.desktop" "$APPDIR/"
-cp "$ROOT/linux/share/club.hiraeth.dxgarden.png" "$APPDIR/club.hiraeth.dxgarden.png"
-ln -sf club.hiraeth.dxgarden.png "$APPDIR/.DirIcon"
-ln -sf usr/bin/dxgarden "$APPDIR/AppRun"
+cp "$ROOT/linux/share/systems.hiraeth.ensoradio.desktop" \
+    "$APPDIR/usr/share/applications/systems.hiraeth.ensoradio.desktop"
+cp "$APPDIR/usr/share/applications/systems.hiraeth.ensoradio.desktop" "$APPDIR/"
+cp "$ROOT/linux/share/systems.hiraeth.ensoradio.png" "$APPDIR/systems.hiraeth.ensoradio.png"
+ln -sf systems.hiraeth.ensoradio.png "$APPDIR/.DirIcon"
+ln -sf usr/bin/ensoradio "$APPDIR/AppRun"
 
 # The name: from linux/VERSION and linux/BUILD.
 version=$(tr -d ' \n' <"$ROOT/linux/VERSION")
 build=$(tr -d ' \n' <"$ROOT/linux/BUILD")
 if [ "$release" = ON ]; then
-    out="$DIST/dxgarden-$version-x86_64.AppImage"
+    out="$DIST/ensoradio-$version-x86_64.AppImage"
 else
-    out="$DIST/dxgarden-$version-b$build-x86_64.AppImage"
+    out="$DIST/ensoradio-$version-b$build-x86_64.AppImage"
 fi
 mkdir -p "$DIST"
 rm -f "$out"

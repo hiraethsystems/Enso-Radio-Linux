@@ -348,7 +348,7 @@ static void about_window(ui_window *w, rect c, void *ud)
     int x = c.x + 64;
     (void)ud;
     ui_icon(ICON_APP32, c.x + 16, c.y + 16, 0);
-    draw_text(x, c.y + 30, UI_FONT_BIG, 1, UI_TEXT, "DX Garden");
+    draw_text(x, c.y + 30, UI_FONT_BIG, 1, UI_TEXT, "Ensō Radio");
     snprintf(line, sizeof(line), "Version %s (build %s) for Linux", DXG_VERSION, DXG_BUILD);
     ui_label(x, c.y + 40, line);
     ui_label(x, c.y + 56, "A radio player and explorer.");
@@ -367,7 +367,7 @@ static void about_window(ui_window *w, rect c, void *ud)
         }
     }
     ui_text_wrap(x, c.y + 120, c.w - x + c.x - 16, UI_TEXT,
-                 "Licensed under the GNU GPL v3. The interface art is DX Garden's own, in "
+                 "Licensed under the GNU GPL v3. The interface art is Ensō Radio's own, in "
                  "the style of Windows 9x; no Microsoft artwork, fonts or sounds are used. "
                  "Text in Liberation Sans and Noto (SIL Open Font License). The bundled "
                  "station list comes from Radio Browser, with town names from GeoNames "
@@ -450,7 +450,7 @@ static ui_menu_item window_items[] = {
 static ui_menu_item help_items[] = {
     { "&Control Gallery", NULL, CMD_GALLERY, 0, NULL },
     { NULL, NULL, 0, MI_SEPARATOR, NULL },
-    { "&About DX Garden", NULL, CMD_ABOUT, 0, NULL },
+    { "&About Ensō Radio", NULL, CMD_ABOUT, 0, NULL },
 };
 static ui_menu menus[] = {
     { file_items, 6 }, { station_items, 10 }, { view_items, 11 }, { window_items, 6 },
@@ -618,16 +618,16 @@ int app_init(SDL_Window *win, const char *assets, const char *data)
     A.playing_si = -1;
     snprintf(fonts, sizeof(fonts), "%sfonts%c", assets, assets[strlen(assets) - 1]);
     if (font_init(fonts) != 0) {
-        SDL_ShowSimpleMessageBox(SDL_MESSAGEBOX_ERROR, "DX Garden",
-                                 "The fonts are missing: DX Garden looks for them in "
-                                 "share/club.hiraeth.dxgarden/fonts/ next to its bin/ folder. Reinstalling "
+        SDL_ShowSimpleMessageBox(SDL_MESSAGEBOX_ERROR, "Ensō Radio",
+                                 "The fonts are missing: Ensō Radio looks for them in "
+                                 "share/systems.hiraeth.ensoradio/fonts/ next to its bin/ folder. Reinstalling "
                                  "may help.",
                                  win);
         return -1;
     }
     if (draw_init() != 0 || icons_init() != 0) {
-        SDL_ShowSimpleMessageBox(SDL_MESSAGEBOX_ERROR, "DX Garden",
-                                 "The graphics could not start. DX Garden needs OpenGL 3.3; "
+        SDL_ShowSimpleMessageBox(SDL_MESSAGEBOX_ERROR, "Ensō Radio",
+                                 "The graphics could not start. Ensō Radio needs OpenGL 3.3; "
                                  "updating the graphics driver may help.",
                                  win);
         return -1;
@@ -650,7 +650,7 @@ int app_init(SDL_Window *win, const char *assets, const char *data)
                                 UIW_RESIZABLE, gallery_window, NULL);
     A.w_gallery->min_w = 450;
     A.w_gallery->min_h = 300;
-    A.w_about = ui_window_new("About DX Garden", ICON_APP16, 0, 0, 400, 290,
+    A.w_about = ui_window_new("About Ensō Radio", ICON_APP16, 0, 0, 400, 290,
                               UIW_DIALOG | UIW_MODAL, about_window, NULL);
     A.w_globe = ui_window_new("Globe", ICON_GLOBE, 8, 8, 640, 480,
                               UIW_RESIZABLE | UIW_BACKGROUND | UIW_NO_CLOSE, globeview_draw, NULL);
@@ -811,12 +811,12 @@ int app_frame(void)
     b = 0; /* the desktop draws the window's border */
     draw_rect(0, 0, w, h, UI_FACE);
     {
-        /* The desktop's title bar: "Station - DX Garden". */
+        /* The desktop's title bar: "Station - Ensō Radio". */
         char t[600];
         if (A.playing_name[0] && A.st.state != PLAYER_IDLE)
-            snprintf(t, sizeof(t), "%s - DX Garden", A.playing_name);
+            snprintf(t, sizeof(t), "%s - Ensō Radio", A.playing_name);
         else
-            snprintf(t, sizeof(t), "DX Garden");
+            snprintf(t, sizeof(t), "Ensō Radio");
         if (strcmp(t, A.os_title) != 0) {
             snprintf(A.os_title, sizeof(A.os_title), "%s", t);
             SDL_SetWindowTitle(A.win, t);

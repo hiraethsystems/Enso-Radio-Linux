@@ -88,15 +88,15 @@ static void gallery_dialogs(rect r)
 
     ui_group("Message boxes", x, y, 410, 90);
     if (ui_button("&Information", x + 12, y + 22, 90, UI_BUTTON_H))
-        ui_msgbox_open("DX Garden", "This is an information message.", MB_INFO, ok, 1);
+        ui_msgbox_open("Ensō Radio", "This is an information message.", MB_INFO, ok, 1);
     if (ui_button("&Warning", x + 110, y + 22, 90, UI_BUTTON_H))
-        ui_msgbox_open("DX Garden", "This station stopped answering. DX Garden will try again "
+        ui_msgbox_open("Ensō Radio", "This station stopped answering. Ensō Radio will try again "
                        "in a few seconds.", MB_WARNING, ok, 1);
     if (ui_button("&Error", x + 208, y + 22, 90, UI_BUTTON_H))
-        ui_msgbox_open("DX Garden", "The server's security certificate isn't valid.", MB_ERROR,
+        ui_msgbox_open("Ensō Radio", "The server's security certificate isn't valid.", MB_ERROR,
                        ok, 1);
     if (ui_button("&Question", x + 306, y + 22, 90, UI_BUTTON_H))
-        ui_msgbox_open("DX Garden", "Add this station to your favourites?", MB_QUESTION, yn, 3);
+        ui_msgbox_open("Ensō Radio", "Add this station to your favourites?", MB_QUESTION, yn, 3);
     res = ui_msgbox_result();
     if (res)
         snprintf(result, sizeof(result), "The message box returned button %d.", res);

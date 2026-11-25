@@ -13,10 +13,10 @@
 #include "text.h"
 
 const char DESKTOP_FAVOURITES_HEADER[] =
-    "# DX Garden favourites: one stream address per line, in order.\n"
+    "# Ensō Radio favourites: one stream address per line, in order.\n"
     "# Managed by the app (Ctrl+D or the star), but safe to edit.\n";
 const char DESKTOP_RECENT_HEADER[] =
-    "# DX Garden recently played: newest first. Managed by the app.\n";
+    "# Ensō Radio recently played: newest first. Managed by the app.\n";
 
 static void load_userlist(userlist *l, const char *path)
 {
@@ -153,7 +153,7 @@ int data_add_url(app_data *d, const char *name, const char *url)
             clean[i] = ' ';
     snprintf(entry, sizeof(entry), "#EXTINF:-1,%s\n%s\n", clean, url);
     if (fs_append(PATHS.added_m3u, entry,
-                  "#EXTM3U\n# Stations added in DX Garden with \"Add station by URL\".\n") != 0)
+                  "#EXTM3U\n# Stations added in Ensō Radio with \"Add station by URL\".\n") != 0)
         return -1;
     LOG("added by URL: %s (%s)", url, clean);
     data_reload_library(d);

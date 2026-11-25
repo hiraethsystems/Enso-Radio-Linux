@@ -45,7 +45,7 @@ else()
     set(DXG_PLATFORM_NAME "Linux")
 endif()
 
-add_executable(dxgarden_linux
+add_executable(ensoradio_linux
     ${CORE_SOURCES}
     ${RB_SOURCES}
     linux/app.c
@@ -69,21 +69,21 @@ add_executable(dxgarden_linux
     linux/ui.c
     linux/ui_widgets.c
 )
-set_target_properties(dxgarden_linux PROPERTIES OUTPUT_NAME dxgarden C_EXTENSIONS ON)
-target_include_directories(dxgarden_linux PRIVATE core linux ${DXG_TEXT_INCLUDES})
-target_compile_definitions(dxgarden_linux PRIVATE DXG_VERSION="${DXG_VERSION}"
+set_target_properties(ensoradio_linux PROPERTIES OUTPUT_NAME ensoradio C_EXTENSIONS ON)
+target_include_directories(ensoradio_linux PRIVATE core linux ${DXG_TEXT_INCLUDES})
+target_compile_definitions(ensoradio_linux PRIVATE DXG_VERSION="${DXG_VERSION}"
                            DXG_BUILD="${DXG_BUILD}" DXG_PLATFORM_NAME="${DXG_PLATFORM_NAME}"
                            "STATION_FILE_MAX=(32u * 1024 * 1024)")
-target_compile_options(dxgarden_linux PRIVATE -Wall -Wextra -O2 -g)
-target_link_libraries(dxgarden_linux PRIVATE SDL3::SDL3-static ${DXG_CURL} ${DXG_MPG123}
+target_compile_options(ensoradio_linux PRIVATE -Wall -Wextra -O2 -g)
+target_link_libraries(ensoradio_linux PRIVATE SDL3::SDL3-static ${DXG_CURL} ${DXG_MPG123}
                       ${DXG_TEXT} m)
 if(DXG_STATIC_DEPS)
     # HarfBuzz is C++: its runtime goes in too, so the program doesn't need
     # this machine's libstdc++.
-    target_compile_definitions(dxgarden_linux PRIVATE CURL_STATICLIB FRIBIDI_LIB_STATIC
+    target_compile_definitions(ensoradio_linux PRIVATE CURL_STATICLIB FRIBIDI_LIB_STATIC
                                FLAC__NO_DLL DXG_STATIC_DEPS)
-    target_link_options(dxgarden_linux PRIVATE -static-libstdc++ -static-libgcc)
-    set_target_properties(dxgarden_linux PROPERTIES LINKER_LANGUAGE CXX)
+    target_link_options(ensoradio_linux PRIVATE -static-libstdc++ -static-libgcc)
+    set_target_properties(ensoradio_linux PROPERTIES LINKER_LANGUAGE CXX)
     enable_language(CXX)
 endif()
 
@@ -95,42 +95,42 @@ set(DXG_LINUX_FONTS
     NotoSansHebrew-Regular.ttf NotoSansThai-Regular.ttf NotoSansGeorgian-Regular.ttf
     NotoSansEthiopic-Regular.ttf NotoSansCJKsc-Subset.otf OFL.txt)
 foreach(f ${DXG_LINUX_FONTS})
-    add_custom_command(TARGET dxgarden_linux POST_BUILD
+    add_custom_command(TARGET ensoradio_linux POST_BUILD
         COMMAND ${CMAKE_COMMAND} -E copy_if_different
-                "${CMAKE_SOURCE_DIR}/assets/fonts/${f}" "$<TARGET_FILE_DIR:dxgarden_linux>/fonts/${f}")
+                "${CMAKE_SOURCE_DIR}/assets/fonts/${f}" "$<TARGET_FILE_DIR:ensoradio_linux>/fonts/${f}")
 endforeach()
-add_custom_command(TARGET dxgarden_linux POST_BUILD
+add_custom_command(TARGET ensoradio_linux POST_BUILD
     COMMAND ${CMAKE_COMMAND} -E copy_if_different
             "${CMAKE_SOURCE_DIR}/assets/stations/linux/stations.txt"
-            "$<TARGET_FILE_DIR:dxgarden_linux>/stations.txt")
+            "$<TARGET_FILE_DIR:ensoradio_linux>/stations.txt")
 # The window icon (X11 title bars and task switchers).
-add_custom_command(TARGET dxgarden_linux POST_BUILD
+add_custom_command(TARGET ensoradio_linux POST_BUILD
     COMMAND ${CMAKE_COMMAND} -E copy_if_different
-            "${CMAKE_SOURCE_DIR}/linux/share/club.hiraeth.dxgarden.png"
-            "$<TARGET_FILE_DIR:dxgarden_linux>/icon.png")
+            "${CMAKE_SOURCE_DIR}/linux/share/systems.hiraeth.ensoradio.png"
+            "$<TARGET_FILE_DIR:ensoradio_linux>/icon.png")
 # The globe's imagery, built by tools/make_earth.py (not in git: 70 MB).
 if(EXISTS "${CMAKE_SOURCE_DIR}/assets-build/earth-day.pack")
-    add_custom_command(TARGET dxgarden_linux POST_BUILD
+    add_custom_command(TARGET ensoradio_linux POST_BUILD
         COMMAND ${CMAKE_COMMAND} -E copy_if_different
                 "${CMAKE_SOURCE_DIR}/assets-build/earth-day.pack"
-                "$<TARGET_FILE_DIR:dxgarden_linux>/earth-day.pack")
+                "$<TARGET_FILE_DIR:ensoradio_linux>/earth-day.pack")
 else()
     message(WARNING "assets-build/earth-day.pack is missing: run tools/make_earth.py "
                     "for the globe's imagery")
 endif()
 
-# Linux install layout (also the AppImage's): bin/dxgarden, the files it
-# reads in share/club.hiraeth.dxgarden/ (found from bin/), and a
+# Linux install layout (also the AppImage's): bin/ensoradio, the files it
+# reads in share/systems.hiraeth.ensoradio/ (found from bin/), and a
 # menu entry and icon named after the app ID SDL gives Wayland.
 include(GNUInstallDirs)
-install(TARGETS dxgarden_linux RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR})
-# Not share/dxgarden/: with --prefix ~/.local that is the user's data folder.
-set(DXG_SHARE "${CMAKE_INSTALL_DATADIR}/club.hiraeth.dxgarden")
+install(TARGETS ensoradio_linux RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR})
+# Not share/ensoradio/: with --prefix ~/.local that is the user's data folder.
+set(DXG_SHARE "${CMAKE_INSTALL_DATADIR}/systems.hiraeth.ensoradio")
 foreach(f ${DXG_LINUX_FONTS})
     install(FILES "${CMAKE_SOURCE_DIR}/assets/fonts/${f}" DESTINATION "${DXG_SHARE}/fonts")
 endforeach()
 install(FILES "${CMAKE_SOURCE_DIR}/assets/stations/linux/stations.txt" DESTINATION "${DXG_SHARE}")
-install(FILES linux/share/club.hiraeth.dxgarden.png DESTINATION "${DXG_SHARE}"
+install(FILES linux/share/systems.hiraeth.ensoradio.png DESTINATION "${DXG_SHARE}"
         RENAME icon.png)
 if(EXISTS "${CMAKE_SOURCE_DIR}/assets-build/earth-day.pack")
     install(FILES "${CMAKE_SOURCE_DIR}/assets-build/earth-day.pack" DESTINATION "${DXG_SHARE}")
@@ -139,12 +139,12 @@ endif()
 # always have ~/.local/bin on their PATH (Plasma on Debian doesn't).
 # Written at install time, so `cmake --install --prefix` is honoured.
 install(CODE "
-    set(dxg_bin \"\${CMAKE_INSTALL_PREFIX}/${CMAKE_INSTALL_BINDIR}/dxgarden\")
-    file(READ \"${CMAKE_SOURCE_DIR}/linux/share/club.hiraeth.dxgarden.desktop\" dxg_entry)
-    string(REPLACE \"Exec=dxgarden\" \"Exec=\\\"\${dxg_bin}\\\"\" dxg_entry \"\${dxg_entry}\")
-    set(dxg_out \"\$ENV{DESTDIR}\${CMAKE_INSTALL_PREFIX}/${CMAKE_INSTALL_DATADIR}/applications/club.hiraeth.dxgarden.desktop\")
+    set(dxg_bin \"\${CMAKE_INSTALL_PREFIX}/${CMAKE_INSTALL_BINDIR}/ensoradio\")
+    file(READ \"${CMAKE_SOURCE_DIR}/linux/share/systems.hiraeth.ensoradio.desktop\" dxg_entry)
+    string(REPLACE \"Exec=ensoradio\" \"Exec=\\\"\${dxg_bin}\\\"\" dxg_entry \"\${dxg_entry}\")
+    set(dxg_out \"\$ENV{DESTDIR}\${CMAKE_INSTALL_PREFIX}/${CMAKE_INSTALL_DATADIR}/applications/systems.hiraeth.ensoradio.desktop\")
     message(STATUS \"Installing: \${dxg_out}\")
     file(WRITE \"\${dxg_out}\" \"\${dxg_entry}\")
 ")
-install(FILES linux/share/club.hiraeth.dxgarden.png
+install(FILES linux/share/systems.hiraeth.ensoradio.png
         DESTINATION "${CMAKE_INSTALL_DATADIR}/icons/hicolor/128x128/apps")

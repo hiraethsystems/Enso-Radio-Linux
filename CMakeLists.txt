@@ -1,9 +1,9 @@
 cmake_minimum_required(VERSION 3.16)
 
-# DX Garden for Linux:
+# Ensō Radio for Linux:
 #   cmake -S . -B build-linux -G Ninja            the app, the tests and the list tool
 #   cmake -S . -B build-test -DDXG_APP=OFF        core/ unit tests only (no SDL needed)
-project(dxgarden C)
+project(ensoradio C)
 
 # Versions (README, "Versions"), in linux/:
 #   VERSION  the release version, MAJOR.MINOR.PATCH, minor and patch 0-9.
@@ -65,7 +65,7 @@ if(DXG_APP)
 endif()
 
 find_package(ZLIB REQUIRED)
-add_executable(dxgarden_test
+add_executable(ensoradio_test
     ${CORE_SOURCES}
     ${RB_SOURCES}
     tests/test_rb.c
@@ -78,20 +78,20 @@ add_executable(dxgarden_test
     tests/test_stream.c
     tests/test_hls.c
 )
-target_include_directories(dxgarden_test PRIVATE core)
-target_compile_definitions(dxgarden_test PRIVATE
+target_include_directories(ensoradio_test PRIVATE core)
+target_compile_definitions(ensoradio_test PRIVATE
                            DXG_TESTDATA_DIR="${CMAKE_SOURCE_DIR}/testdata")
-target_compile_options(dxgarden_test PRIVATE -Wall -Wextra -Wpedantic -g)
-target_compile_options(dxgarden_test PRIVATE -fsanitize=address,undefined)
-target_link_options(dxgarden_test PRIVATE -fsanitize=address,undefined)
-target_link_libraries(dxgarden_test ZLIB::ZLIB m)
+target_compile_options(ensoradio_test PRIVATE -Wall -Wextra -Wpedantic -g)
+target_compile_options(ensoradio_test PRIVATE -fsanitize=address,undefined)
+target_link_options(ensoradio_test PRIVATE -fsanitize=address,undefined)
+target_link_libraries(ensoradio_test ZLIB::ZLIB m)
 
 # The station-list builder from the command line, to compare it with
 # tools/rb_to_stations.py (tests/compare_listtool.sh).
-add_executable(dxgarden_listtool ${CORE_SOURCES} ${RB_SOURCES} tests/listtool.c)
-target_include_directories(dxgarden_listtool PRIVATE core)
-target_compile_options(dxgarden_listtool PRIVATE -Wall -Wextra -O2 -g)
-target_link_libraries(dxgarden_listtool ZLIB::ZLIB m)
+add_executable(ensoradio_listtool ${CORE_SOURCES} ${RB_SOURCES} tests/listtool.c)
+target_include_directories(ensoradio_listtool PRIVATE core)
+target_compile_options(ensoradio_listtool PRIVATE -Wall -Wextra -O2 -g)
+target_link_libraries(ensoradio_listtool ZLIB::ZLIB m)
 
 enable_testing()
-add_test(NAME core COMMAND dxgarden_test)
+add_test(NAME core COMMAND ensoradio_test)
